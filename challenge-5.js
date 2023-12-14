@@ -1,31 +1,32 @@
 function cyberReindeer(road, time) {
   let arrRoad = road.split('')
-  const result = []
+  const result = [road]
   let positionS = road.indexOf('S')
-  for (let i = 0; i < time -1; i++) {
-    
-    if (arrRoad[i - 1] === 'S' && arrRoad[i] === '.') {
-      arrRoad[i-1] = '.'
-      arrRoad[i] = 'S'
-      positionS++
-    }
-
-    console.log(arrRoad[positionS])
-
-    if (i === 5) {
+  let lastCharter= '.'
+  
+  for (let i = 0; i < time - 1; i++) {
+    if (i === 4) {
       const newRoad = arrRoad.join('').replaceAll('|', '*')
       arrRoad = newRoad.split('')      
     }
-  
+    
+    if (arrRoad[positionS + 1] !== '|') {
+      if (i === 0) arrRoad[positionS] = '.'
+      else arrRoad[positionS] = lastCharter
+      lastCharter = arrRoad[positionS + 1]
+      arrRoad[positionS + 1] = 'S'
+      positionS++
+    }
+
     result.push(arrRoad.join(''))
   }
-
+  
 
   return result
 }
 
 const road = 'S..||...||..'
-const time = 15
+const time = 10
 console.log(cyberReindeer(road, time))
 
 /*
